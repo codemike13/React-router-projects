@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     },
     userCreated: {
         type: String,
-        default: now.format('dddd, MMMMM Do YYYY, h:mm:ss a')
+        default: now.format('dddd, MMMM Do YYYY, h:mm:ss a')
     },
     id: {
         type: String
@@ -36,6 +36,7 @@ UserSchema.methods.generateToken = function () {
     });
     return token;
 }
+
 
 module.exports = mongoose.model('User', UserSchema);
 

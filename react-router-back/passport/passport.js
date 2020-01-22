@@ -25,7 +25,7 @@ const localLogin = new LocalStrategy({ usermameField: "username" }, async functi
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader("authorization-x-token"),
-    secretOrKey: "birds"
+    secretOrKey: "birds" // testing key
 
 };
 

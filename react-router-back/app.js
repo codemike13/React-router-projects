@@ -7,6 +7,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users/users');
+const postRouter = require('./routes/post/post')
 const passport = require('passport')
 const app = express();
 require('dotenv').config()
@@ -47,6 +48,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/post', postRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
