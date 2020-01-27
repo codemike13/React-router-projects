@@ -29,7 +29,10 @@ const PostSchema = new mongoose.Schema({
     },
     created: {
         type: String,
-        default: now.format('dddd, MMMM Do YYYY, h:mm:ss a')
+        default: () => {
+            const now = moment();
+            return now.format('dddd, MMMM Do YYYY, h:mm:ss a');
+        }
 
     }
 });
