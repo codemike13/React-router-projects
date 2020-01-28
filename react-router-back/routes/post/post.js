@@ -7,4 +7,7 @@ router.post('/create-post', passport.authenticate('jwt-user', { session: false }
 
 router.get('/get-all-posts', passport.authenticate('jwt-user', { session: false }), postController.getAllPosts)
 
+router.delete('/delete-post-by-id/:postId', passport.authenticate('jwt-user', { session: false }), postController.deletePost)
+
+
 module.exports = router;

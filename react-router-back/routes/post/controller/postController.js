@@ -101,7 +101,6 @@ module.exports = {
 
     getAllPosts: async (req, res) => {
         try {
-            let userId = req.user._id;
             let posts = await Post.find({})
                 .populate('postedBy', '_id username')
                 .populate('comments.postedBy', '_id username')
@@ -113,6 +112,17 @@ module.exports = {
             res.status(500).json(dbErrorHelper(e));
         }
 
+    },
+    deletePost: async (req, res) => {
+        console.log(req.params.postId, ' From backend bitch')
+        try {
+            let postToDelete = await Post.findByIdAndDelete(req.params.postId)
+
+
+        } catch (e) {
+            res.status(500).json(dbErrorHelper(e));
+
+        }
     }
 
 }
