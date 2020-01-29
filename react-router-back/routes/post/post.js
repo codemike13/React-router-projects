@@ -11,6 +11,11 @@ router.delete('/delete-post-by-id/:postId', passport.authenticate('jwt-user', { 
 
 router.post('/add-comment', passport.authenticate('jwt-user', { session: false }), postController.addComment);
 
+// router.delete('/delete-comment-by-id/:postId/:index', passport.authenticate('jwt-user', { session: false }), postController.deleteComment);
 
-router.delete('/delete-comment-by-id/:postId/:index', passport.authenticate('jwt-user', { session: false }), postController.deleteComment)
+router.delete('/delete-comment-by-id/:postID/:commentID', passport.authenticate('jwt-user', { session: false }), postController.deleteCommentByID)
+
+
+
+
 module.exports = router;

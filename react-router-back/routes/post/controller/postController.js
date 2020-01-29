@@ -146,17 +146,23 @@ module.exports = {
 
         }
     },
-    deleteComment: async (req, res) => {
-        console.log(req.params.postId)
-        console.log(req.params.index);
+    deleteCommentByID: async (req, res) => {
+        // console.log(req.params.postId)
+        // console.log(req.params.index);
 
-        let id = req.params.postId
-        let i = req.params.index
+        // let id = req.params.postId
+        // let i = req.params.index
         try {
-            let post = await Post.findById(id)
-            post.comments.splice(i, 1)
-            post.save()
-            res.send(post.comments)
+            let success = await Post.findByIdAndUpdate(postId, { $pull: { comments: { _id: commentID } } }, { new: true })
+                .populate('comments.postedBy', '_id name')
+                .populate('postedBy', '_id name')
+                .exec()
+
+            res.json(success)
+            // let post = await Post.findById(id)
+            // post.comments.splice(i, 1)
+            // post.save()
+            // res.send(post.comments)
         } catch (e) {
             res.status(500).json(dbErrorHelper(e));
 
