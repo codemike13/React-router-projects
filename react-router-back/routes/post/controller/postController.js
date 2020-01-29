@@ -48,7 +48,9 @@ module.exports = {
                     let createdPost = await new Post(newPostObj)
                     let savedCreatedPost = await createdPost.save();
 
-                    let aggregatedPost = await savedCreatedPost.populate('postedBy', '_id username')
+                    let aggregatedPost = await savedCreatedPost
+                        .populate('postedBy', '_id username')
+                        .execPopulate()
 
                     // let posts = await Post.find({})
                     //     .populate('postedBy', '_id username')
@@ -73,7 +75,9 @@ module.exports = {
                     //     .populate('comments.postedBy', '_id username')
                     //     .sort('-created')
                     //     .exec()
-                    let aggregatedPost = await savedCreatedPost.populate('postedBy', '_id username')
+                    let aggregatedPost = await savedCreatedPost
+                        .populate('postedBy', '_id username')
+                        .execPopulate()
 
                     res.json(aggregatedPost)
                 }
@@ -119,6 +123,40 @@ module.exports = {
             let postToDelete = await Post.findByIdAndDelete(req.params.postId)
 
 
+            res.send()
+        } catch (e) {
+            res.status(500).json(dbErrorHelper(e));
+
+        }
+    },
+
+    addComment: async (req, res) => {
+        // console.log(req.body.data.comment)
+        // console.log(req.body.data.postId)
+        let id = req.body.data.postId
+        let comment = req.body.data.comment
+        try {
+            let post = await Post.findById(id)
+            post.comments.push(comment)
+            post.save()
+            console.log(post.comments);
+            res.send()
+        } catch (e) {
+            res.status(500).json(dbErrorHelper(e));
+
+        }
+    },
+    deleteComment: async (req, res) => {
+        console.log(req.params.postId)
+        console.log(req.params.index);
+
+        let id = req.params.postId
+        let i = req.params.index
+        try {
+            let post = await Post.findById(id)
+            post.comments.splice(i, 1)
+            post.save()
+            res.send(post.comments)
         } catch (e) {
             res.status(500).json(dbErrorHelper(e));
 

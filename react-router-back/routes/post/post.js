@@ -9,5 +9,8 @@ router.get('/get-all-posts', passport.authenticate('jwt-user', { session: false 
 
 router.delete('/delete-post-by-id/:postId', passport.authenticate('jwt-user', { session: false }), postController.deletePost)
 
+router.post('/add-comment', passport.authenticate('jwt-user', { session: false }), postController.addComment);
 
+
+router.delete('/delete-comment-by-id/:postId/:index', passport.authenticate('jwt-user', { session: false }), postController.deleteComment)
 module.exports = router;
